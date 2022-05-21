@@ -11,15 +11,21 @@ object Main {
     val host = "localhost"
     val port = 9900
     println(s"Started client! connecting to ${host}:${port}")
+    
+    val actorSystem: ActorSystem = ActorSystem.create("MyActorSystem")
+
 
     val clientProps = Props(classOf[TcpClient], new InetSocketAddress(host, port), null)
+    val clientActor: ActorRef = actorSystem.actorOf(clientProps)
 
-    val actorSystem: ActorSystem = ActorSystem.create("MyActorSystem")
-    // val clientActor: ActorRef = actorSystem.actorOf(clientProps)
-    val streamReader: ActorRef = actorSystem.actorOf(Props(classOf[StreamReader1], null))
+    val messageParserProps = Props(classOf[MessageParser], clientActor)
+    val messageParser: ActorRef = actorSystem.actorOf(messageParserProps)
+
+    val readerProps = Props(classOf[SSEStreamReader], messageParser)
+    val readerActor: ActorRef = actorSystem.actorOf(readerProps)
 
     Thread.sleep(2000)
     // clientActor ! ByteString("hello from client!\nhello from client!\nhello from client!\n")
-    // clientActor ! ByteString("second client message")
+    // clientActor ! ByteString("second client message1")
   }
 }
