@@ -31,8 +31,6 @@ class SimplisticHandler extends Actor {
 
       if (dataSplitted.length > 2) {
         payload = dataSplitted(2)
-        
-        
       }
 
       router ! ParsedCommand(command, topic, payload, sender())
