@@ -19,7 +19,7 @@ class TopicSupervisor(topicName: String) extends Actor with akka.actor.ActorLogg
       
       subscribersSet.foreach(subscriber => {
         log.info("writing to address: " + subscriber)
-        subscriber ! Write(ByteString(publisherMessage.payload))
+        subscriber ! Write(ByteString(publisherMessage.payload + "\n"))
       })
 
     }

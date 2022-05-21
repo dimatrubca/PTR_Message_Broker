@@ -39,9 +39,12 @@ class MessageParser(tcpClient: ActorRef) extends Actor with akka.actor.ActorLogg
       val panicMessage = panicPattern findFirstIn message
 
       if (panicMessage.isEmpty) {
-          val user = compact(render((parse(message) \ "message" \ "tweet" \ "user" \ "name")))
-          var tweet = compact(render((parse(message) \ "message" \ "tweet" \ "text")))
-          val timestamp_ms = compact(render(((parse(message) \ "message" \ "tweet" \ "timestamp_ms" ))))
+          val user = compact(render((parse(message) \ "message" \ "tweet" \ "user" \ "name"))).stripPrefix("\"").stripSuffix("\"").trim
+          var tweet = compact(render((parse(message) \ "message" \ "tweet" \ "text"))).stripPrefix("\"").stripSuffix("\"").trim
+          val timestamp_ms = compact(render(((parse(message) \ "message" \ "tweet" \ "timestamp_ms" )))).stripPrefix("\"").stripSuffix("\"").trim
+
+          println("user: " + user)
+          println("tweet: " + tweet)
 
           if (user != "null") {
               val userPayload = compact(render(("timestamp_ms" -> timestamp_ms) ~ ("message" -> user)))
