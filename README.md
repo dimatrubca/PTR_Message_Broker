@@ -34,3 +34,7 @@ from the database.
 ```TopicManager``` - topic manager actor handles publish, subscribe, unsubscribe and sendNextMessage messages. It keeps track of all of the subscribers to the given topic, as well as the last subscriber acknoledged message.</br>
 ```WorkerPool``` - worker pool actor maintains the connection to the database and handles the redirection of the messages to the workers using Round Robin method.</br>
 ```Worker``` - worker actor implements the logicof saving and retrieving the data from the database. It uses the connection maintained by the parent actor.
+
+
+### Supervision tree
+<img src="images/SupervisionTree2.0.png"/>
