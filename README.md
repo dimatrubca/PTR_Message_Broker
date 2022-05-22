@@ -30,7 +30,7 @@ from the database.
 
 ### Main Actors
 ```TCPConnectionHandler``` - represents the connection to the server for each separate client. Inside the handler, the received data is parsed into 3 parts: command, topic, payload - after which, it's being sent to the router.</br>
-```Router``` - the router selects the topic manager for the received command and sends it the message</br>
+```Router``` - the router selects the topic manager based on the received command, and sends it the message</br>
 ```TopicManager``` - topic manager actor handles publish, subscribe, unsubscribe and sendNextMessage messages. It keeps track of all of the subscribers to the given topic, as well as the last subscriber acknoledged message.</br>
 ```WorkerPool``` - worker pool actor maintains the connection to the database and handles the redirection of the messages to the workers using Round Robin method.</br>
 ```Worker``` - worker actor implements the logicof saving and retrieving the data from the database. It uses the connection maintained by the parent actor.
