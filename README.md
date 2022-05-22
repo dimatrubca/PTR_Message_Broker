@@ -19,7 +19,7 @@ In the diagram below, the message flow is represented for each supported command
 
 <img src="images/EventsMessageFlow.png"/>
 
-The publish command is being sent by the stream readers. After it's parsed inside the TCP connection handler, the router receives the corresponding message, which instantly
+The publish command is being sent by the stream readers. After it's parsed inside the TCP connection handler, the router receives the corresponding message and
 notifies the topic supervisor about it. The message is sent to the topic subscribers which have acknoledged all of the previous messages, and persisted inside the database (to be able
 to notify the other subscribes and those who have been temporarily disconnected as soon as they restore the access.
 
